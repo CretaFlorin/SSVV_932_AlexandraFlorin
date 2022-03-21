@@ -2,6 +2,8 @@ package repository;
 
 import curent.domain.BaseEntity;
 import validation.ValidationException;
+import validation.Validator;
+
 import java.io.*;
 
 public abstract class AbstractFileRepository<ID, E extends BaseEntity<ID>> extends AbstractCrudRepository<ID, E> implements FileRepository<ID, E> {
@@ -12,7 +14,8 @@ public abstract class AbstractFileRepository<ID, E extends BaseEntity<ID>> exten
      * Class constructor
      * @param filename - numele fisierului
      */
-    AbstractFileRepository(String filename) {
+    AbstractFileRepository(Validator<E> validator,String filename) {
+        super(validator);
         this.filename = filename;
         loadFromFile();
     }

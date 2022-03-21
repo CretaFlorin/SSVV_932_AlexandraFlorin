@@ -1,19 +1,24 @@
 package repository;
 
 import curent.domain.BaseEntity;
+import validation.ValidationException;
+import validation.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractCrudRepository <ID, E extends BaseEntity<ID>> implements CrudRepository<ID, E> {
-    private Map<ID, E> elemente;
+    private Map<ID, E> entities;
+    Validator<E> validator;
 
 
     /**
      * Class constructor
      */
-    AbstractCrudRepository(){
-        this.elemente = new HashMap<>();
+    AbstractCrudRepository(Validator validator){
+        this.entities = new HashMap<>();
+        this.validator = validator;
+
     }
 
     /**
@@ -24,7 +29,7 @@ public abstract class AbstractCrudRepository <ID, E extends BaseEntity<ID>> impl
      */
     @Override
     public E findOne(ID id) {
-        return this.elemente.get(id);
+        return this.entities.get(id);
     }
 
     /**
@@ -33,7 +38,7 @@ public abstract class AbstractCrudRepository <ID, E extends BaseEntity<ID>> impl
      */
     @Override
     public Iterable<E> findAll() {
-        return this.elemente.values();
+        return this.entities.values();
     }
 
     /**
@@ -43,22 +48,19 @@ public abstract class AbstractCrudRepository <ID, E extends BaseEntity<ID>> impl
      * @return null daca obiectul a fost salvat sau obiectul daca acesta exista deja
      */
     @Override
-    public E save(E entity) {
-        /*
-        for(ID id: elemente.keySet()){
-            if(id == entity.getID()){
-                return elemente.get(id);
+    public E save(E entity)
+      throws ValidationException {
+            try {
+                validator.validate(entity);
+                return entities.putIfAbsent(entity.getId(), entity);
+            }
+            catch (ValidationException ve) {
+                System.out.println("Entitatea nu este valida! \n");
+                return null;
             }
         }
-        */
-        E el = this.findOne(entity.getId());
-        if (el==null){
-            this.elemente.put(entity.getId(), entity);
-            return null;
-        }
-        else return entity;
 
-    }
+
 
     /**
      * sterge un obiect din memorie
@@ -68,7 +70,7 @@ public abstract class AbstractCrudRepository <ID, E extends BaseEntity<ID>> impl
      */
     @Override
     public E delete(ID id) {
-        return this.elemente.remove(id);
+        return this.entities.remove(id);
     }
 
     /**
@@ -79,10 +81,10 @@ public abstract class AbstractCrudRepository <ID, E extends BaseEntity<ID>> impl
      */
     @Override
     public E update(E entity) {
-        if(this.elemente.get(entity.getId()) == null){
+        if(this.entities.get(entity.getId()) == null){
             return entity;
         }
-        this.elemente.replace(entity.getId(), entity);
+        this.entities.replace(entity.getId(), entity);
         return null;
     }
 }

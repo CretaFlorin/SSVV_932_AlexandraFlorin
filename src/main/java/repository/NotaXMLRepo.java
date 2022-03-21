@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import validation.Validator;
 
 public class NotaXMLRepo extends AbstractXMLRepository<Long, Nota> {
 
@@ -13,8 +14,8 @@ public class NotaXMLRepo extends AbstractXMLRepository<Long, Nota> {
      * Class constructor
      * @param filename - numele fisierului
      */
-    public NotaXMLRepo(String filename) {
-        super( filename);
+    public NotaXMLRepo(Validator<Nota> validator,String filename) {
+        super(validator, filename);
     }
 
     @Override

@@ -1,6 +1,8 @@
 package repository;
 
 import curent.domain.Nota;
+import validation.Validator;
+
 import java.time.LocalDate;
 
 public class NotaFileRepository extends AbstractFileRepository<Long, Nota> {
@@ -9,8 +11,8 @@ public class NotaFileRepository extends AbstractFileRepository<Long, Nota> {
      * Class constructor
      * @param filename - numele fisierului
      */
-    public NotaFileRepository(String filename) {
-        super( filename);
+    public NotaFileRepository(Validator<Nota> validator,String filename) {
+        super( validator,filename);
     }
 
     /**

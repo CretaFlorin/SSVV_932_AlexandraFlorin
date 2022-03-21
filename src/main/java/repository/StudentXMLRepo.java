@@ -4,14 +4,15 @@ import curent.domain.Student;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import validation.Validator;
 
 public class StudentXMLRepo extends AbstractXMLRepository<Long, Student> {
     /**
      * Class constructor
      * @param filename - numele fisierului
      */
-    public StudentXMLRepo(String filename) {
-        super(filename);
+    public StudentXMLRepo(Validator<Student> validator,String filename) {
+        super(validator,filename);
     }
 
     /**

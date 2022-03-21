@@ -1,6 +1,7 @@
 package repository;
 
 import curent.domain.Tema;
+import validation.Validator;
 
 public class TemaFileRepository extends AbstractFileRepository<Long, Tema> {
 
@@ -8,8 +9,9 @@ public class TemaFileRepository extends AbstractFileRepository<Long, Tema> {
      * Class constructor
      * @param filename - numele fisierului
      */
-    public TemaFileRepository(String filename){
-        super(filename);
+    public TemaFileRepository(Validator<Tema> validator,String filename){
+
+        super(validator,filename);
     }
 
     /**

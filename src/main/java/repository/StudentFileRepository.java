@@ -1,6 +1,7 @@
 package repository;
 
 import curent.domain.Student;
+import validation.Validator;
 
 public class StudentFileRepository extends AbstractFileRepository<Long, Student> {
 
@@ -8,8 +9,8 @@ public class StudentFileRepository extends AbstractFileRepository<Long, Student>
      * Class constructor
      * @param filename - numele fisierului
      */
-    public StudentFileRepository(String filename) {
-        super(filename);
+    public StudentFileRepository(Validator<Student> validator,String filename) {
+        super(validator,filename);
     }
 
     /**

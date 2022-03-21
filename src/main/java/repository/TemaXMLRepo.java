@@ -4,6 +4,7 @@ import curent.domain.Tema;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import validation.Validator;
 
 public class TemaXMLRepo extends AbstractXMLRepository<Long, Tema> {
 
@@ -11,8 +12,8 @@ public class TemaXMLRepo extends AbstractXMLRepository<Long, Tema> {
      * Class constructor
      * @param filename - numele fisierului
      */
-    public TemaXMLRepo(String filename){
-        super(filename);
+    public TemaXMLRepo(Validator<Tema> validator,String filename){
+        super(validator,filename);
     }
 
     /**

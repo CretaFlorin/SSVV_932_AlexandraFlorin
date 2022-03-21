@@ -20,6 +20,7 @@ public class MainApplication {
     public static void main(String[] args) {
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
+
         String filenameStudent = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\Studenti.xml";
         String filenameTema = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\Teme.xml";
         String filenameNota = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\Catalog.xml";
@@ -29,10 +30,11 @@ public class MainApplication {
         //NotaValidator notaValidator = new NotaValidator(studentFileRepository, temaFileRepository);
         //NotaFileRepository notaFileRepository = new NotaFileRepository(filenameNota);
 
-        StudentXMLRepo studentXMLRepository = new StudentXMLRepo(filenameStudent);
-        TemaXMLRepo temaXMLRepository = new TemaXMLRepo(filenameTema);
+        StudentXMLRepo studentXMLRepository = new StudentXMLRepo(studentValidator,filenameStudent);
+        TemaXMLRepo temaXMLRepository = new TemaXMLRepo(temaValidator,filenameTema);
+
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
-        NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
+        NotaXMLRepo notaXMLRepository = new NotaXMLRepo(notaValidator,filenameNota);
         Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
         UI ui = new UI(service);
         ui.run();
