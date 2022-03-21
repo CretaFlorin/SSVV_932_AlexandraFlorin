@@ -185,7 +185,7 @@ public class Service {
             }
         }
         notaFileRepository.save(nota);
-        String filename = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\" + student.getNume() + ".txt";
+        String filename = "src\\main\\fisiere\\" + student.getNume() + ".txt";
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filename, true))) {
             bufferedWriter.write("\nTema: " + tema.getId());
             bufferedWriter.write("\nNota: " + nota.getNota());

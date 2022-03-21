@@ -21,9 +21,9 @@ public class MainApplication {
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
 
-        String filenameStudent = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\Studenti.xml";
-        String filenameTema = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\Teme.xml";
-        String filenameNota = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\Catalog.xml";
+        String filenameStudent = "src\\main\\fisiere\\Studenti.xml";
+        String filenameTema = "src\\main\\fisiere\\Teme.xml";
+        String filenameNota = "src\\main\\fisiere\\Catalog.xml";
 
        //StudentFileRepository studentFileRepository = new StudentFileRepository(filenameStudent);
         //TemaFileRepository temaFileRepository = new TemaFileRepository(filenameTema);

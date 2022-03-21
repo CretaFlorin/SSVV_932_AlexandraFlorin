@@ -15,7 +15,7 @@ public class StudentXMLRepoTest {
 Validator<Student> validator=new StudentValidator();
     @BeforeEach
     void setUp() {
-       studentXMLRepo = new StudentXMLRepo(validator,"C:\\Users\\alexa\\IdeaProjects\\lab2ssvv\\SSVV\\src\\test\\fisiere\\Studenti.xml");
+       studentXMLRepo = new StudentXMLRepo(validator,"src\\test\\fisiere\\Studenti.xml");
    }
 //tests from in class
     @Test

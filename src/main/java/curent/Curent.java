@@ -25,7 +25,7 @@ public class Curent {
      * @return the date when university have started
      */
     public static LocalDate getStartDate() {
-        String filename = "C:\\Users\\creta\\Desktop\\ssvv\\Lab_Project\\src\\main\\fisiere\\DataInceput.txt";
+        String filename = "src\\main\\fisiere\\DataInceput.txt";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
             String line = bufferedReader.readLine();
             String[] words = line.split(",");

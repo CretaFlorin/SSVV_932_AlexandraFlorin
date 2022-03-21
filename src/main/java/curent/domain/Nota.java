@@ -85,3 +85,10 @@ public class Nota extends BaseEntity<Long> {
         this.idTema = idTema;
     }
 }
+
+//<nota idNota="3">
+//<idStudent>1003</idStudent>
+//<idTema>1</idTema>
+//<notaProf>8.0</notaProf>
+//<dataCurenta>2018-10-10</dataCurenta>
+//</nota>

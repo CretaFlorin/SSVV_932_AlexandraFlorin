@@ -52,7 +52,7 @@ public class NotaXMLRepo extends AbstractXMLRepository<Long, Nota> {
      */
     @Override
     public Nota extractEntity(Element element) {
-        String id = element.getAttribute("id");
+        String id = element.getAttribute("idNota");
         NodeList nods = element.getChildNodes();
 
         String studentId =element.getElementsByTagName("idStudent")
