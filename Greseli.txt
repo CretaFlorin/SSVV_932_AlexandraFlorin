@@ -1,0 +1,6 @@
+--	HasId class was in repository (moved to domain and renamed to BaseEntity)
+--  Changed the type of the ID from String to Long
+--  Remove the id attribute from each class that extents BaseEntity
+--  Created missing getters and setters for some attributes
+--  Class Tema had no identifier
+--  Changed the type of nrTem attribute in class Tema from string to int

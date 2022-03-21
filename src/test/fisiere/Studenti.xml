@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<inbox>
+    <student idStudent="1000">
+        <nume>student1</nume>
+        <grupa>931</grupa>
+        <email>stud@yahoo.com</email>
+        <numeProfesor>hehe</numeProfesor>
+    </student>
+</inbox>
