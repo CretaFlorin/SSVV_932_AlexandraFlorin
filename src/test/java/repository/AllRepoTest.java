@@ -55,6 +55,7 @@ public class AllRepoTest {
 @Test
     @DisplayName("Integration")
     void testAll(){
+        /*
     this.studentRepository.save(new Student(1000L, "student1", 931, "stud@yahoo.com", "hehe"));
     this.temaRepository.save(new Tema(100L,"blabla",3,2));
     this.notaRepository.save(new Nota(1L,1000L,100L,8, LocalDate.now()));
@@ -63,8 +64,10 @@ public class AllRepoTest {
     Tema t = this.temaRepository.findOne(100L);
     Assertions.assertEquals(t.getDescriere(),"blabla");
     Student student = this.studentRepository.findOne(1000L);
-    assertEquals(student.getNume(), "student1");
-
+    assertEquals(student.getNume(), "student1");*/
+testAddAssignment_validDescription();
+testAddStudent_validName();
+testAddGrade_valid();
 }
 
     }
