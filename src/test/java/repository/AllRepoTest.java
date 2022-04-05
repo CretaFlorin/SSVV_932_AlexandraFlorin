@@ -70,4 +70,40 @@ testAddStudent_validName();
 testAddGrade_valid();*/
 }
 
+
+
+
+//take home
+@Test
+@DisplayName("Adding a valid student group")
+void testAddStudent_validGroup(){
+    this.studentRepository.save(new Student(100L, "student", 932, "stud@yahoo.com", "hehe"));
+    Student student = this.studentRepository.findOne(100L);
+    assertEquals(student.getGrupa(),932);
+
+}
+    @Test
+    @DisplayName("Adding an integration for homework")
+void integrateHomework(){
+        this.studentRepository.save(new Student(100L, "student", 932, "stud@yahoo.com", "hehe"));
+        Student student = this.studentRepository.findOne(100L);
+        this.temaRepository.save(new Tema(10L,"bla",4,2));
+        Tema t = this.temaRepository.findOne(10L);
+        assertEquals(student.getGrupa(),932);
+        Assertions.assertEquals(t.getDeadline(),4);
+}
+    @Test
+    @DisplayName("Adding an integration for grade")
+void integrateGrade(){
+        this.studentRepository.save(new Student(1000L, "student1", 931, "stud@yahoo.com", "hehe"));
+        this.temaRepository.save(new Tema(100L,"blabla",3,2));
+        this.notaRepository.save(new Nota(1L,1000L,100L,8, LocalDate.now()));
+        Nota n = this.notaRepository.findOne(1L);
+        Assertions.assertEquals(n.getNota(),8);
+        Tema t = this.temaRepository.findOne(100L);
+        Assertions.assertEquals(t.getDescriere(),"blabla");
+        Student student = this.studentRepository.findOne(1000L);
+        assertEquals(student.getNume(), "student1");
+}
+
     }
