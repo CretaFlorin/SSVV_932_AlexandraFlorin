@@ -7,17 +7,18 @@ import curent.domain.Tema;
 import repository.*;
 
 public class NotaValidator implements Validator<Nota> {
-    private StudentXMLRepo studentFileRepository;
-    private TemaXMLRepo temaFileRepository;
-
+   // private StudentXMLRepo studentFileRepository;
+    //private TemaXMLRepo temaFileRepository;
+private StudentRepository studentRepository;
+private TemaRepository temaRepository;
     /**
      * Class constructor
-     * @param studentFileRepository - repository student
-     * @param temaFileRepository - repository tema
+     * @param studRepository - repository student
+     * @param temRepository - repository tema
      */
-    public NotaValidator(StudentXMLRepo studentFileRepository, TemaXMLRepo temaFileRepository) {
-        this.studentFileRepository = studentFileRepository;
-        this.temaFileRepository = temaFileRepository;
+    public NotaValidator(StudentRepository studRepository, TemaRepository temRepository) {
+        this.studentRepository = studRepository;
+        this.temaRepository = temRepository;
     }
 
     /**
@@ -27,11 +28,11 @@ public class NotaValidator implements Validator<Nota> {
      */
     @Override
     public void validate(Nota nota) throws ValidationException {
-        Student student = studentFileRepository.findOne(nota.getIdStudent());
+        Student student = studentRepository.findOne(nota.getIdStudent());
         if (student== null){
             throw new ValidationException("Studentul nu exista!");
         }
-        Tema tema = temaFileRepository.findOne(nota.getIdTema());
+        Tema tema = temaRepository.findOne(nota.getIdTema());
         if(tema == null){
             throw new ValidationException("Tema nu exista!");
         }

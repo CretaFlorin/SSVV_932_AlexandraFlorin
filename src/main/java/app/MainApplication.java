@@ -1,12 +1,7 @@
 package app;
 
 
-import repository.NotaFileRepository;
-import repository.StudentFileRepository;
-import repository.StudentXMLRepo;
-import repository.TemaXMLRepo;
-import repository.NotaXMLRepo;
-import repository.TemaFileRepository;
+import repository.*;
 import service.Service;
 import validation.NotaValidator;
 import validation.StudentValidator;
@@ -30,14 +25,15 @@ public class MainApplication {
         //NotaValidator notaValidator = new NotaValidator(studentFileRepository, temaFileRepository);
         //NotaFileRepository notaFileRepository = new NotaFileRepository(filenameNota);
 
-        StudentXMLRepo studentXMLRepository = new StudentXMLRepo(studentValidator,filenameStudent);
-        TemaXMLRepo temaXMLRepository = new TemaXMLRepo(temaValidator,filenameTema);
-
-        NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
+        //StudentXMLRepo studentXMLRepository = new StudentXMLRepo(studentValidator,filenameStudent);
+        //TemaXMLRepo temaXMLRepository = new TemaXMLRepo(temaValidator,filenameTema);
+        StudentRepository studentRepository=new StudentRepository(studentValidator);
+        TemaRepository temaRepository=new TemaRepository(temaValidator);
+        NotaValidator notaValidator = new NotaValidator(studentRepository, temaRepository);
         NotaXMLRepo notaXMLRepository = new NotaXMLRepo(notaValidator,filenameNota);
-        Service service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
-        UI ui = new UI(service);
-        ui.run();
+        //Service service = new Service(studentRepository, studentValidator, temaRepository, temaValidator, notaXMLRepository, notaValidator);
+        //UI ui = new UI(service);
+       // ui.run();
     }
 
 }
