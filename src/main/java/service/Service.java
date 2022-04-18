@@ -22,14 +22,17 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * Clasa Service
  */
 public class Service {
+    private StudentRepository studentRepository;
     //private StudentFileRepository studentFileRepository;
-    private StudentXMLRepo studentFileRepository;
+  //  private StudentXMLRepo studentFileRepository;
     private StudentValidator studentValidator;
     //private TemaFileRepository temaFileRepository;
-    private TemaXMLRepo temaFileRepository;
+    private TemaRepository temaRepository;
+   // private TemaXMLRepo temaFileRepository;
     private TemaValidator temaValidator;
     //private NotaFileRepository notaFileRepository;
-    private NotaXMLRepo notaFileRepository;
+    //private NotaXMLRepo notaFileRepository;
+    private NotaRepository notaRepository;
     private NotaValidator notaValidator;
 
     /**
@@ -43,13 +46,13 @@ public class Service {
      * @param notaValidator         - validator nota
      */
     //public Service(StudentFileRepository studentFileRepository, StudentValidator studentValidator, TemaFileRepository temaFileRepository, TemaValidator temaValidator, NotaFileRepository notaFileRepository, NotaValidator notaValidator) {
-    public Service(StudentXMLRepo studentFileRepository, StudentValidator studentValidator, TemaXMLRepo temaFileRepository, TemaValidator temaValidator, NotaXMLRepo notaFileRepository, NotaValidator notaValidator) {
+    public Service(StudentRepository studentFileRepository, StudentValidator studentValidator, TemaRepository temaFileRepository, TemaValidator temaValidator, NotaRepository notaFileRepository, NotaValidator notaValidator) {
 
-        this.studentFileRepository = studentFileRepository;
+        this.studentRepository = studentFileRepository;
         this.studentValidator = studentValidator;
-        this.temaFileRepository = temaFileRepository;
+        this.temaRepository = temaFileRepository;
         this.temaValidator = temaValidator;
-        this.notaFileRepository = notaFileRepository;
+        this.notaRepository = notaFileRepository;
         this.notaValidator = notaValidator;
     }
 
@@ -61,7 +64,7 @@ public class Service {
      */
     public Student addStudent(Student student) {
         studentValidator.validate(student);
-        return studentFileRepository.save(student);
+        return studentRepository.save(student);
     }
 
     /**
@@ -74,7 +77,7 @@ public class Service {
         if (id == null || id.equals(0L)) {
             throw new ValidationException("Id-ul nu poate fi null!");
         }
-        return studentFileRepository.delete(id);
+        return studentRepository.delete(id);
     }
 
     /**
@@ -87,7 +90,7 @@ public class Service {
         if (id == null || id.equals(0L)) {
             throw new ValidationException("Id-ul nu poate fi null!");
         }
-        return studentFileRepository.findOne(id);
+        return studentRepository.findOne(id);
     }
 
     /**
@@ -98,14 +101,14 @@ public class Service {
      */
     public Student updateStudent(Student student) {
         studentValidator.validate(student);
-        return studentFileRepository.update(student);
+        return studentRepository.update(student);
     }
 
     /**
      * @return toti studentii din memorie
      */
     public Iterable<Student> getAllStudenti() {
-        return studentFileRepository.findAll();
+        return studentRepository.findAll();
     }
 
     /**
@@ -116,7 +119,7 @@ public class Service {
      */
     public Tema addTema(Tema tema) {
         temaValidator.validate(tema);
-        return temaFileRepository.save(tema);
+        return temaRepository.save(tema);
     }
 
     /**
@@ -129,7 +132,7 @@ public class Service {
         if (nrTema == null || nrTema.equals(0L)) {
             throw new ValidationException("Id-ul nu poate fi null!");
         }
-        return temaFileRepository.delete(nrTema);
+        return temaRepository.delete(nrTema);
     }
 
     /**
@@ -142,7 +145,7 @@ public class Service {
         if (id == null || id.equals(0L)) {
             throw new ValidationException("Id-ul nu poate fi null!");
         }
-        return temaFileRepository.findOne(id);
+        return temaRepository.findOne(id);
     }
 
     /**
@@ -153,14 +156,14 @@ public class Service {
      */
     public Tema updateTema(Tema tema) {
         temaValidator.validate(tema);
-        return temaFileRepository.update(tema);
+        return temaRepository.update(tema);
     }
 
     /**
      * @return toate temele din memorie
      */
     public Iterable<Tema> getAllTeme() {
-        return temaFileRepository.findAll();
+        return temaRepository.findAll();
     }
 
     /**
@@ -172,8 +175,8 @@ public class Service {
      */
     public double addNota(Nota nota, String feedback) {
         notaValidator.validate(nota);
-        Student student = studentFileRepository.findOne(nota.getIdStudent());
-        Tema tema = temaFileRepository.findOne(nota.getIdTema());
+        Student student = studentRepository.findOne(nota.getIdStudent());
+        Tema tema = temaRepository.findOne(nota.getIdTema());
         int predare = calculeazaSPredare(nota.getData());
 //        System.out.println(predare);
 //        System.out.println(tema.getDeadline());
@@ -184,7 +187,7 @@ public class Service {
                 throw new ValidationException("Studentul nu mai poate preda aceasta tema!");
             }
         }
-        notaFileRepository.save(nota);
+        notaRepository.save(nota);
         String filename = "src\\main\\fisiere\\" + student.getNume() + ".txt";
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filename, true))) {
             bufferedWriter.write("\nTema: " + tema.getId());
@@ -209,7 +212,7 @@ public class Service {
         if (id == null || id.equals(0L)) {
             throw new ValidationException("Id-ul nu poate fi null!");
         }
-        return notaFileRepository.delete(id);
+        return notaRepository.delete(id);
     }
 
     /**
@@ -222,14 +225,14 @@ public class Service {
         if (id == null || id.equals(0L)) {
             throw new ValidationException("Id-ul nu poate fi null!");
         }
-        return notaFileRepository.findOne(id);
+        return notaRepository.findOne(id);
     }
 
     /**
      * @return toate notele
      */
     public Iterable<Nota> getAllNote() {
-        return notaFileRepository.findAll();
+        return notaRepository.findAll();
     }
 
     /**
@@ -240,13 +243,13 @@ public class Service {
      */
     public void prelungireDeadline(Long nrTema, int deadline) {
         int diff = Curent.getCurrentWeek();
-        Tema tema = temaFileRepository.findOne(nrTema);
+        Tema tema = temaRepository.findOne(nrTema);
         if (tema == null) {
             throw new ValidationException("Tema inexistenta!");
         }
         if (tema.getDeadline() >= diff) {
             tema.setDeadline(deadline);
-            temaFileRepository.writeToFile();
+            //temaRepository.writeToFile();
         } else {
             throw new ValidationException("Nu se mai poate prelungi deadline-ul!");
         }

@@ -30,10 +30,10 @@ public class MainApplication {
         StudentRepository studentRepository=new StudentRepository(studentValidator);
         TemaRepository temaRepository=new TemaRepository(temaValidator);
         NotaValidator notaValidator = new NotaValidator(studentRepository, temaRepository);
-        NotaXMLRepo notaXMLRepository = new NotaXMLRepo(notaValidator,filenameNota);
-        //Service service = new Service(studentRepository, studentValidator, temaRepository, temaValidator, notaXMLRepository, notaValidator);
-        //UI ui = new UI(service);
-       // ui.run();
+        NotaRepository notaRepository = new NotaRepository(notaValidator);
+        Service service = new Service(studentRepository, studentValidator, temaRepository, temaValidator, notaRepository, notaValidator);
+        UI ui = new UI(service);
+        ui.run();
     }
 
 }
